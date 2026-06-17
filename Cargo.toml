@@ -1,0 +1,26 @@
+# Cargo workspace root.
+#
+# A workspace groups several crates that build together and share one
+# Cargo.lock / target dir. This mirrors the pnpm monorepo in `ems-gerber`,
+# where `packages/parser`, `packages/plotter`, etc. are separate packages.
+[workspace]
+resolver = "2"
+members = [
+    "crates/gerber-parser",
+    "crates/gerber-plotter",
+    "crates/gerber-render",
+    "crates/gerber-app",
+]
+
+# Dependencies shared by multiple crates are declared once here and referenced
+# with `foo.workspace = true` in each crate. Keeps versions in sync.
+[workspace.dependencies]
+gerber-parser = { path = "crates/gerber-parser" }
+gerber-plotter = { path = "crates/gerber-plotter" }
+gerber-render = { path = "crates/gerber-render" }
+
+# Compile dependencies with optimizations even in debug builds so the GUI
+# stays responsive while you develop. Your own crates stay un-optimized for
+# fast rebuilds.
+[profile.dev.package."*"]
+opt-level = 2
