@@ -2,14 +2,14 @@
 
 /// Parsed file is a Gerber or a NC Drill
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum FileType{
+pub enum Filetype{
     Gerber,
     Drill
 }
 
 /// Unit Of Measure
-#[debug(Debug, Clone, Copy, PartialEq, Eq)]
-pub enum units {
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Units {
     Millimeters,
     Inches
 }
@@ -38,7 +38,7 @@ pub enum CoordinateMode{
 }
 
 /// A tool's outer shape
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum ToolShape{
     Circle { diameter: f64 },
     Rectangle { x_size: f64, y_size: f64 },
@@ -48,7 +48,7 @@ pub enum ToolShape{
 }
 
 /// Tool hole in center (circle or rectangle)
-#[derive(Debug, Clone, PartailEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum HoleShape {
     Circle {diameter: f64},
     Rectangle {x_size: f64, y_size: f64}
@@ -68,24 +68,24 @@ pub enum GraphicType {
 }
 
 /// Segments between points
-#[derive(Debug, Clone, Copy, PartailEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum InterpolateMode {
     Line,
     CwArc,
-    CcArc,
+    CcwArc,
     Move,
     Drill,
 }
 
 /// Image Polarity
-#[derive(Debug, Clone, Copy, PartailEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Polarity {
     Dark,
     Clear,
 }
 
 /// Coordinates for a graphic operation.
-#[derive(Debug, Clone, Copy, Default, PartailEq)]
+#[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub struct Coordinates {
     pub x: Option<f64>,
     pub y: Option<f64>,
@@ -94,7 +94,7 @@ pub struct Coordinates {
 }
 
 /// Node in the syntax tree
-#[derive(Debug, Clone, PartailEq)]
+#[derive(Debug, Clone, PartialEq)]
 pub enum Node {
     /// `G04` / drill comment. Usually ignorable.
     Comment(String),

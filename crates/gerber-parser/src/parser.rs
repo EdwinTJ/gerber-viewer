@@ -3,7 +3,7 @@
 //! recognize becomes [`Node::Unimplemented`] so a single odd command never
 //! aborts the whole parse.
 
-use create::tree::*;
+use crate::tree::*;
 
 /// Parse Gerber text into a syntax tree.
 pub fn parse(source: &str) -> GerberTree {
@@ -13,7 +13,7 @@ pub fn parse(source: &str) -> GerberTree {
 
     for block in split_blocks(source) {
         let block = block.trim();
-        if clock.is_empty() {
+        if block.is_empty() {
             continue;
         }
 
@@ -25,7 +25,7 @@ pub fn parse(source: &str) -> GerberTree {
     }
 
     GerberTree {
-        filetype: FileType::Gerber,
+        filetype: Filetype::Gerber,
         children,
     }
 }
@@ -56,7 +56,7 @@ fn split_blocks(source: &str) -> Vec<String> {
         }
     }
     if !current.trim().is_empty() {
-        block.psuh(current);
+        blocks.push(current);
     }
     blocks
 }
