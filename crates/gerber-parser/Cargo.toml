@@ -1,0 +1,6 @@
+[package]
+name = "gerber-parser"
+version = "0.1.0"
+edition = "2024"
+description = "Parse Gerber/drill files into a syntax tree."
+[dependencies]
